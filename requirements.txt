@@ -1,0 +1,27 @@
+# Student 360 AI-Powered Analytics Platform - V1.0
+# Requirements File for Streamlit Cloud Deployment
+
+# Core Dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+plotly>=5.17.0
+
+# HTTP & API
+requests>=2.31.0
+ollama>=0.1.0
+
+# System Resources
+psutil>=5.9.0
+
+# Optional: GPU Detection (may not work on Streamlit Cloud)
+GPUtil>=1.4.0
+
+# Date/Time handling
+python-dateutil>=2.8.2
+
+# Excel file support
+openpyxl>=3.0.0
+
+# Additional utilities
+typing-extensions>=4.0.0
