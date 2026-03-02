@@ -75,20 +75,10 @@ except ImportError as e:
     print(f"Warning: Fully dynamic discovery system not available: {e}")
 
 # ====================================================================================
-# PAGE CONFIGURATION
+# PAGE CONFIGURATION - Will be set in main()
 # ====================================================================================
 
-st.set_page_config(
-    page_title="Student 360 AI-Powered Analytics V3.0 | Exalio",
-    page_icon="🎓",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://exalio.com/support',
-        'Report a bug': 'https://exalio.com/bugs',
-        'About': '# Student 360 AI-Powered Analytics V3.0 by Exalio\nVersion 3.0 - Auto-Loading Production Release\n\nTransform student data into strategic intelligence with AI.\n\nFeatures:\n- 5 Advanced AI-Driven Analysis Tabs\n- Auto-loads Student_360_View dataset on startup\n- Context-aware visualizations\n- Strategic insights & recommendations\n\nNEW in V3: Dataset loads automatically - analytics ready instantly!'
-    }
-)
+# Note: st.set_page_config() moved to main() function to prevent Streamlit Cloud crashes
 
 # ====================================================================================
 # CUSTOM CSS STYLING
@@ -9348,6 +9338,19 @@ def auto_load_dataset():
 
 def main():
     """Main application entry point"""
+
+    # MUST be first Streamlit command
+    st.set_page_config(
+        page_title="Student 360 AI-Powered Analytics V3.1 | Exalio",
+        page_icon="🎓",
+        layout="wide",
+        initial_sidebar_state="expanded",
+        menu_items={
+            'Get Help': 'https://exalio.com/support',
+            'Report a bug': 'https://exalio.com/bugs',
+            'About': '# Student 360 AI-Powered Analytics V3.1 by Exalio\nVersion 3.1 - Cloud-Optimized Release\n\nTransform student data into strategic intelligence with AI.\n\nFeatures:\n- 5 Advanced AI-Driven Analysis Tabs\n- Auto-loads Student_360_View dataset on startup\n- Context-aware visualizations\n- Strategic insights & recommendations\n\nV3.1: Optimized for Streamlit Cloud deployment'
+        }
+    )
 
     # Initialize
     inject_custom_css()
