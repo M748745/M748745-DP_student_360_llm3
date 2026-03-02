@@ -14,8 +14,8 @@ ollama>=0.1.0
 # System Resources
 psutil>=5.9.0
 
-# Optional: GPU Detection (may not work on Streamlit Cloud)
-GPUtil>=1.4.0
+# Optional: GPU Detection (DISABLED - causes crash on Streamlit Cloud)
+# GPUtil>=1.4.0
 
 # Date/Time handling
 python-dateutil>=2.8.2
