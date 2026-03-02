@@ -32,8 +32,15 @@ Changes from V1:
 - Improved data loading performance
 """
 
+import sys
+print("=" * 60, flush=True)
+print("V3.1 STARTING - Python:", sys.version, flush=True)
+print("=" * 60, flush=True)
+
 import streamlit as st
+print("✓ Streamlit imported", flush=True)
 import pandas as pd
+print("✓ Pandas imported", flush=True)
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
@@ -48,37 +55,59 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 import re
+print("✓ All standard imports completed", flush=True)
 
 # Import journey generation modules
+print("Importing journey modules...", flush=True)
 try:
     from journey_definitions import ALL_JOURNEYS, FINANCIAL_CONSTANTS
     from journey_assembler import generate_all_journeys, validate_dataset_for_journeys
     JOURNEY_MODULES_AVAILABLE = True
+    print("✓ Journey modules imported", flush=True)
 except ImportError as e:
     JOURNEY_MODULES_AVAILABLE = False
-    print(f"Warning: Journey modules not available: {e}")
+    print(f"⚠ Warning: Journey modules not available: {e}", flush=True)
 
 # Import LLM-driven entity journey system
+print("Importing LLM entity journey system...", flush=True)
 try:
     from llm_entity_journey_system import generate_complete_llm_journeys, generate_visualization, filter_dataset_for_entity
     LLM_ENTITY_JOURNEY_AVAILABLE = True
+    print("✓ LLM entity journey system imported", flush=True)
 except ImportError as e:
     LLM_ENTITY_JOURNEY_AVAILABLE = False
-    print(f"Warning: LLM entity journey system not available: {e}")
+    print(f"⚠ Warning: LLM entity journey system not available: {e}", flush=True)
 
 # Import fully dynamic entity discovery system (ZERO guidance)
+print("Importing fully dynamic discovery...", flush=True)
 try:
     from fully_dynamic_entity_discovery import generate_fully_dynamic_journeys
     FULLY_DYNAMIC_DISCOVERY_AVAILABLE = True
+    print("✓ Fully dynamic discovery imported", flush=True)
 except ImportError as e:
     FULLY_DYNAMIC_DISCOVERY_AVAILABLE = False
-    print(f"Warning: Fully dynamic discovery system not available: {e}")
+    print(f"⚠ Warning: Fully dynamic discovery system not available: {e}", flush=True)
+
+print("All module imports completed!", flush=True)
 
 # ====================================================================================
-# PAGE CONFIGURATION - Will be set in main()
+# PAGE CONFIGURATION
 # ====================================================================================
 
-# Note: st.set_page_config() moved to main() function to prevent Streamlit Cloud crashes
+print("Setting page config...", flush=True)
+st.set_page_config(
+    page_title="Student 360 AI-Powered Analytics V3.1 | Exalio",
+    page_icon="🎓",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://exalio.com/support',
+        'Report a bug': 'https://exalio.com/bugs',
+        'About': '# Student 360 AI-Powered Analytics V3.1 by Exalio\nVersion 3.1 - Cloud-Optimized\n\nFeatures:\n- Auto-loads Student_360_View dataset\n- 5 Advanced AI-Driven Analysis Tabs\n- Context-aware visualizations'
+    }
+)
+print("✓ Page config set", flush=True)
+print("Module loading complete - ready for main()", flush=True)
 
 # ====================================================================================
 # CUSTOM CSS STYLING
@@ -9339,25 +9368,24 @@ def auto_load_dataset():
 def main():
     """Main application entry point"""
 
-    # MUST be first Streamlit command
-    st.set_page_config(
-        page_title="Student 360 AI-Powered Analytics V3.1 | Exalio",
-        page_icon="🎓",
-        layout="wide",
-        initial_sidebar_state="expanded",
-        menu_items={
-            'Get Help': 'https://exalio.com/support',
-            'Report a bug': 'https://exalio.com/bugs',
-            'About': '# Student 360 AI-Powered Analytics V3.1 by Exalio\nVersion 3.1 - Cloud-Optimized Release\n\nTransform student data into strategic intelligence with AI.\n\nFeatures:\n- 5 Advanced AI-Driven Analysis Tabs\n- Auto-loads Student_360_View dataset on startup\n- Context-aware visualizations\n- Strategic insights & recommendations\n\nV3.1: Optimized for Streamlit Cloud deployment'
-        }
-    )
-
     # Initialize
+    print("MAIN: Starting initialization...", flush=True)
     inject_custom_css()
+    print("MAIN: CSS injected", flush=True)
     initialize_session_state()
+    print("MAIN: Session state initialized", flush=True)
 
     # AUTO-LOAD DATASET (NEW IN V3) - Load Student_360_View.csv automatically
-    auto_load_dataset()
+    try:
+        print("MAIN: Calling auto_load_dataset...", flush=True)
+        auto_load_dataset()
+        print("MAIN: auto_load_dataset completed", flush=True)
+    except Exception as e:
+        print(f"MAIN: ERROR in auto_load_dataset: {e}", flush=True)
+        import traceback
+        traceback.print_exc()
+        # Continue even if auto-load fails
+        st.session_state.auto_load_status = f"error: {str(e)}"
 
     # Header
     st.markdown("""
